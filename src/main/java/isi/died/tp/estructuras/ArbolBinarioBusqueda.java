@@ -71,11 +71,6 @@ public class ArbolBinarioBusqueda<E extends Comparable<E>> extends Arbol<E> {
 		return this.derecho;
 	}
 
-	@Override
-	public boolean equals(Arbol<E> unArbol) {
-		// TODO Auto-generated method stub
-		return this.valor.equals(unArbol.valor()) && this.izquierdo.equals(unArbol.izquierdo()) && this.derecho.equals(unArbol.derecho());
-	}
 
 	@Override
 	public void agregar(E a) {
@@ -89,31 +84,37 @@ public class ArbolBinarioBusqueda<E extends Comparable<E>> extends Arbol<E> {
 	}
 	
 	@Override
+	public boolean equals(Arbol<E> unArbol) {
+		return this.valor.equals(unArbol.valor()) && this.izquierdo.equals(unArbol.izquierdo()) && this.derecho.equals(unArbol.derecho());
+	}
+
+	@Override
 	public boolean contiene(E unValor) {
+		// TODO 1.a
 		return false;
 	}
 
 	@Override
 	public int profundidad() {
-		// TODO Auto-generated method stub
+		// TODO 1.b
 		return 0;
 	}
 
 	@Override
 	public int cuentaNodosDeNivel(int nivel) {
-		// TODO Auto-generated method stub
+		// TODO 1.c
 		return 0;
 	}
 
 	@Override
 	public boolean esCompleto() {
-		// TODO Auto-generated method stub
+		// TODO 1.d
 		return false;
 	}
 
 	@Override
 	public boolean esLleno() {
-		// TODO Auto-generated method stub
+		// TODO 1.e
 		return false;
 	}
 
