@@ -87,7 +87,8 @@ public class ArbolBinarioBusqueda<E extends Comparable<E>> extends Arbol<E> {
 	public boolean equals(Arbol<E> unArbol) {
 		return this.valor.equals(unArbol.valor()) && this.izquierdo.equals(unArbol.izquierdo()) && this.derecho.equals(unArbol.derecho());
 	}
-
+	
+	
 	@Override
 	public boolean contiene(E unValor) {
 		// TODO 1.a
@@ -99,6 +100,7 @@ public class ArbolBinarioBusqueda<E extends Comparable<E>> extends Arbol<E> {
 	public int profundidad() {
 		// TODO 1.b
 		if(this.izquierdo.esVacio()&&this.derecho.esVacio()) return 0;
+		
 		return 1+Math.max(izquierdo.profundidad(),derecho.profundidad());
 	}
 
@@ -118,12 +120,15 @@ public class ArbolBinarioBusqueda<E extends Comparable<E>> extends Arbol<E> {
 		
 		if(this.esLleno()) return true;
 		
+		if(this.izquierdo.esVacio() && !this.derecho.esVacio()) return false;
+		
+		if(!this.izquierdo.esVacio() && this.derecho.esVacio()) return true;
+		
 		if(izquierdo.profundidad()-derecho.profundidad()==1 && derecho.esLleno() && izquierdo.esCompleto()) return true;
 		
 		if(izquierdo.profundidad()-derecho.profundidad()==0 && izquierdo.esLleno() && derecho.esCompleto()) return true; 
 		
 		return false;
-			
 	}
 
 	@Override
@@ -132,12 +137,8 @@ public class ArbolBinarioBusqueda<E extends Comparable<E>> extends Arbol<E> {
 		
 		int n=this.profundidad();
 		int aux =this.cuentaNodosDeNivel(n);
-		//System.out.println(n);
-		//System.out.println(aux);
 		if(aux==Math.pow(2,n)) return true;
 		else return false;
-		
-		
 	}
 
 }

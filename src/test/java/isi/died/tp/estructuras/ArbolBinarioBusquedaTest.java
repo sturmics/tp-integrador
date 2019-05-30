@@ -12,6 +12,10 @@ public class ArbolBinarioBusquedaTest {
 	
 	Arbol<Integer> abb3 = new ArbolBinarioBusqueda<>(5);
 	
+	Arbol<Integer> abb4 = new ArbolBinarioBusqueda<>(5);
+	
+	Arbol<Integer> abb5 = new ArbolBinarioBusqueda<>(5);
+	
 	@Before
 	public void preTest() {
 		abb.agregar(30);
@@ -29,43 +33,58 @@ public class ArbolBinarioBusquedaTest {
 		
 		abb3.agregar(4);
 		
+		abb5.agregar(30);
+		abb5.agregar(20);
+		abb5.agregar(40);
+		abb5.agregar(15);
+		abb5.agregar(21);
+		
 	}
-	/*
+	
 	@Test
 	public void testContiene() {
-		fail("Not yet implemented");
+		assertEquals(true,abb.contiene(25));
+		assertEquals(false,abb.contiene(5));
+		assertEquals(true,abb.contiene(30));
+		assertEquals(true,abb3.contiene(4));
 	}
-
+	
 	@Test
 	public void testEqualsArbolOfE() {
-		fail("Not yet implemented");
+		assertEquals(true,abb.equals(abb));
+		assertEquals(false,abb.equals(abb2));
 	}
-
+	
 	@Test
-	public void testAgregar() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testProfundidad() {
-			
+	public void testProfundidad(){
+		assertEquals(2,abb.profundidad());
+		assertEquals(1,abb3.profundidad());
+		assertEquals(0,abb4.profundidad());
 	}
 
 	@Test
 	public void testCuentaNodosDeNivel() {
-		fail("Not yet implemented");
+		assertEquals(1,abb3.cuentaNodosDeNivel(0));
+		assertEquals(1,abb3.cuentaNodosDeNivel(1));
+		assertEquals(4,abb.cuentaNodosDeNivel(2));
+		assertEquals(3,abb2.cuentaNodosDeNivel(2));
 	}
-*/
+	
 	@Test
 	public void testEsCompleto() {
-		//assertTrue(abb.esCompleto());
-		assertTrue(abb3.esCompleto());
+		assertEquals(true,abb.esCompleto());
+		assertEquals(true,abb2.esCompleto());
+		assertEquals(true,abb3.esCompleto());
+		assertEquals(true,abb4.esCompleto());
+		assertEquals(false,abb5.esCompleto());
 	}
 	
 	@Test
 	public void testEsLleno() {
-		assertTrue(abb.esLleno());
-		assertFalse(abb2.esLleno());
+		assertEquals(true,abb.esLleno());
+		assertEquals(false,abb2.esLleno());
+		assertEquals(false,abb3.esLleno());
+		assertEquals(true,abb4.esLleno());
 	}
 
 }
