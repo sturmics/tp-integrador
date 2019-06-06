@@ -79,6 +79,11 @@ public class ArbolVacio<E extends Comparable<E>> extends Arbol<E> {
 		return false;
 	}
 
-
-
+	public ArrayList<E> rango(int ini ,int fin){
+		return new ArrayList<E>();
+	}
+	
+	protected ArrayList<E> rangoAux(int ini, int fin, ArrayList<E> lista) {
+		return lista;
+	}
 }

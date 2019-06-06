@@ -1,12 +1,12 @@
 package isi.died.tp.estructuras;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Arbol<E extends Comparable<E>> {
-
-
+	
 	protected E valor;
-
+	
 	public abstract List<E> preOrden();
 
 	public abstract List<E> inOrden();
@@ -35,5 +35,7 @@ public abstract class Arbol<E extends Comparable<E>> {
 
 	public abstract boolean esLleno();
 
-	
+	protected abstract ArrayList<E> rangoAux(int ini, int fin, ArrayList<E> lista);
+
+	protected abstract Object rango(int i, int j);	
 }

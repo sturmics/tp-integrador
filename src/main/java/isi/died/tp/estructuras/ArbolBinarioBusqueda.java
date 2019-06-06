@@ -1,7 +1,9 @@
 package isi.died.tp.estructuras;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import isi.died.tp.dominio.Insumo;
 
 public class ArbolBinarioBusqueda<E extends Comparable<E>> extends Arbol<E> {
 
@@ -140,5 +142,36 @@ public class ArbolBinarioBusqueda<E extends Comparable<E>> extends Arbol<E> {
 		if(aux==Math.pow(2,n)) return true;
 		else return false;
 	}
-
+	
+	public ArrayList<E> rango(int ini ,int fin){
+		
+		ArrayList<E> lista = new ArrayList<E>();
+		lista=rangoAux(ini, fin,lista);
+		Collections.sort(lista);
+		
+		return lista;
+	}
+	
+	public ArrayList<E> rangoAux(int ini,int fin,ArrayList<E> lista) {
+		
+		if(this.izquierdo.esVacio()&&this.derecho.esVacio()) {
+			if (((Insumo) this.valor).getStock() >= ini  && ((Insumo) this.valor).getStock() <= fin) {lista.add(valor);}
+		}
+		
+		else if (((Insumo) this.valor).getStock() < ini) {
+			lista = this.derecho.rangoAux(ini ,fin,lista);
+		}
+		
+		else if (((Insumo) this.valor).getStock() > fin) {
+			lista = this.izquierdo.rangoAux(ini ,fin,lista);
+		}
+		
+		else if (((Insumo) this.valor).getStock() >= ini  && ((Insumo) this.valor).getStock() <= fin) {
+			lista.add(valor);
+			lista = this.derecho.rangoAux(ini,fin,lista);
+			lista = this.izquierdo.rangoAux(ini,fin,lista);
+		}
+		
+		return lista;
+	}
 }
