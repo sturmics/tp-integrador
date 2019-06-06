@@ -50,9 +50,4 @@ public class Insumo implements Comparable <Insumo> {
 	public double pesoPorStock() {
 		return stock*peso;
 	}	
-
-	@Override
-	public String toString() {
-		return "Insumo =" + stock;
-	}
 }
