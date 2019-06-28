@@ -1,7 +1,9 @@
 package isi.died.tp.estructuras;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import isi.died.tp.dominio.Insumo;
 
 public class ArbolBinarioBusqueda<E extends Comparable<E>> extends Arbol<E> {
 
@@ -87,35 +89,89 @@ public class ArbolBinarioBusqueda<E extends Comparable<E>> extends Arbol<E> {
 	public boolean equals(Arbol<E> unArbol) {
 		return this.valor.equals(unArbol.valor()) && this.izquierdo.equals(unArbol.izquierdo()) && this.derecho.equals(unArbol.derecho());
 	}
-
+	
+	
 	@Override
 	public boolean contiene(E unValor) {
 		// TODO 1.a
-		return false;
+		if (this.valor.equals(unValor)|| this.izquierdo.contiene(unValor)||this.derecho.contiene(unValor)) return true;
+		else return false;
 	}
 
 	@Override
 	public int profundidad() {
 		// TODO 1.b
-		return 0;
+		if(this.izquierdo.esVacio()&&this.derecho.esVacio()) return 0;
+		
+		return 1+Math.max(izquierdo.profundidad(),derecho.profundidad());
 	}
 
 	@Override
 	public int cuentaNodosDeNivel(int nivel) {
 		// TODO 1.c
-		return 0;
+		
+		if (nivel==0) return 1;
+		
+		return this.izquierdo.cuentaNodosDeNivel(nivel-1)+this.derecho.cuentaNodosDeNivel(nivel-1);
 	}
+	
 
 	@Override
 	public boolean esCompleto() {
 		// TODO 1.d
+		
+		if(this.esLleno()) return true;
+		
+		if(this.izquierdo.esVacio() && !this.derecho.esVacio()) return false;
+		
+		if(!this.izquierdo.esVacio() && this.derecho.esVacio()) return true;
+		
+		if(izquierdo.profundidad()-derecho.profundidad()==1 && derecho.esLleno() && izquierdo.esCompleto()) return true;
+		
+		if(izquierdo.profundidad()-derecho.profundidad()==0 && izquierdo.esLleno() && derecho.esCompleto()) return true; 
+		
 		return false;
 	}
 
 	@Override
 	public boolean esLleno() {
 		// TODO 1.e
-		return false;
+		
+		int n=this.profundidad();
+		int aux =this.cuentaNodosDeNivel(n);
+		if(aux==Math.pow(2,n)) return true;
+		else return false;
 	}
-
+	
+	public ArrayList<E> rango(int ini ,int fin){
+		
+		ArrayList<E> lista = new ArrayList<E>();
+		lista=rangoAux(ini, fin,lista);
+		Collections.sort(lista);
+		
+		return lista;
+	}
+	
+	public ArrayList<E> rangoAux(int ini,int fin,ArrayList<E> lista) {
+		
+		if(this.izquierdo.esVacio()&&this.derecho.esVacio()) {
+			if (((Insumo) this.valor).getStock() >= ini  && ((Insumo) this.valor).getStock() <= fin) {lista.add(valor);}
+		}
+		
+		else if (((Insumo) this.valor).getStock() < ini) {
+			lista = this.derecho.rangoAux(ini ,fin,lista);
+		}
+		
+		else if (((Insumo) this.valor).getStock() > fin) {
+			lista = this.izquierdo.rangoAux(ini ,fin,lista);
+		}
+		
+		else if (((Insumo) this.valor).getStock() >= ini  && ((Insumo) this.valor).getStock() <= fin) {
+			lista.add(valor);
+			lista = this.derecho.rangoAux(ini,fin,lista);
+			lista = this.izquierdo.rangoAux(ini,fin,lista);
+		}
+		
+		return lista;
+	}
 }
