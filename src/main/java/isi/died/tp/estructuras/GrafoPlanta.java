@@ -17,7 +17,24 @@ public class GrafoPlanta extends Grafo<Planta> {
  // a
 	public Planta buscarPlanta(Planta inicial, Insumo i, Integer saltos) {
 		
+		if(saltos==0) return null;
+		
+		
+		if(inicial.necesitaInsumo(i))
+			return inicial;
+		else{
+			List<Planta> plantasAd = this.getAdyacentes(inicial);
+			Integer saltosAux = saltos -1;
+			for (int cont=0; cont<plantasAd.size(); cont++) {
+				Planta planta1= this.buscarPlanta(plantasAd.get(cont), i, saltosAux);
+				if(planta1 != null) return planta1;
+			}
+		}
+		
+		return null;
 	}
+	
+	
  // b
 // public Planta buscarPlanta(Planta inicial, Insumo i) { . . . }
  // c
