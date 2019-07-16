@@ -11,6 +11,7 @@ public class Insumo implements Comparable <Insumo> {
 	protected boolean esRefrigerado;
 	protected UnidadMedida unidad;	
 	
+	//hola
 	public Insumo(int i,String des,String planta, int s,double peso,double costo,boolean ref,UnidadMedida u){
 		this.id=i;
 		this.descripcion=des;
