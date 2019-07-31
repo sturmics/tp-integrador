@@ -1,4 +1,7 @@
-package pantallas;
+
+//FALTAN LOS BOTONES AGREGAR STOCK A PLANTA Y EDITAR STOCKS
+
+package isi.died.tp.pantallas;
 
 import java.awt.EventQueue;
 
@@ -11,11 +14,12 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class VerPlantas {
+public class EditarInsumosDePlanta {
 
 	private JFrame frame;
 	private JTable table;
-	private JButton btnVerInsumos;
+	private JButton btnAgregarStockA;
+	private JButton btnEditarStocks;
 	private JButton btnAtrs;
 
 	/**
@@ -25,7 +29,7 @@ public class VerPlantas {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VerPlantas window = new VerPlantas();
+					EditarInsumosDePlanta window = new EditarInsumosDePlanta();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,7 +41,7 @@ public class VerPlantas {
 	/**
 	 * Create the application.
 	 */
-	public VerPlantas() {
+	public EditarInsumosDePlanta() {
 		initialize();
 	}
 
@@ -47,56 +51,60 @@ public class VerPlantas {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
-		frame.setTitle("Ver Plantas");
+		frame.setTitle("Editar Insumos");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(50, 27, 322, 164);
+		scrollPane.setBounds(20, 21, 394, 154);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
 		table.setBackground(Color.LIGHT_GRAY);
-		scrollPane.setViewportView(table);
+		table.setForeground(Color.LIGHT_GRAY);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
 			},
 			new String[] {
-				"ID", "Nombre"
+				"Insumo", "Cantidad", "Cantidad m\u00EDnima"
 			}
 		));
+		scrollPane.setViewportView(table);
 		
-		btnVerInsumos = new JButton("Ver insumos");
-		btnVerInsumos.addActionListener(new ActionListener() {
+		btnAgregarStockA = new JButton("Agregar stock a planta");
+		btnAgregarStockA.setBounds(20, 186, 180, 25);
+		frame.getContentPane().add(btnAgregarStockA);
+		btnAgregarStockA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VerInsumosDePlanta insumosPlanta = new VerInsumosDePlanta();
-				insumosPlanta.main(null);
-				//frame.dispose();
+				PantallaAgregarStockPlantaX gestP=new PantallaAgregarStockPlantaX();
+				gestP.main(null);
+				frame.dispose();
 			}
 		});
-		btnVerInsumos.setBounds(262, 202, 110, 25);
-		frame.getContentPane().add(btnVerInsumos);
+		
+		btnEditarStocks = new JButton("Editar stocks");
+		btnEditarStocks.setBounds(289, 186, 125, 25);
+		frame.getContentPane().add(btnEditarStocks);
 		
 		btnAtrs = new JButton("Atrás");
 		btnAtrs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GestionDePlantas gestionP = new GestionDePlantas();
-				gestionP.main(null);
+				EditarPlanta editP = new EditarPlanta();
+				editP.main(null);
 				frame.dispose();
 			}
 		});
 		btnAtrs.setBounds(10, 225, 100, 25);
 		frame.getContentPane().add(btnAtrs);
 	}
-
 }

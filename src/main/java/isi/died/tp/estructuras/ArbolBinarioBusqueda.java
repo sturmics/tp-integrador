@@ -29,6 +29,11 @@ public class ArbolBinarioBusqueda<E extends Comparable<E>> extends Arbol<E> {
 	}
 	
 	@Override
+	public String toString() {
+		return this.valor +" ( "+ this.izquierdo.toString() +", "+this.derecho.toString()+ ") ";
+	}
+	
+	@Override
 	public List<E> preOrden() {
 		List<E> lista = new ArrayList<E>();
 		lista.add(this.valor);
@@ -143,35 +148,70 @@ public class ArbolBinarioBusqueda<E extends Comparable<E>> extends Arbol<E> {
 		else return false;
 	}
 	
-	public ArrayList<E> rango(int ini ,int fin){
+	public ArrayList<E> rango(String nombre, int stockMin,int stockMax, double costoMin, double costoMax){
 		
-		ArrayList<E> lista = new ArrayList<E>();
-		lista=rangoAux(ini, fin,lista);
-		Collections.sort(lista);
+		ArrayList<E> lista1 = new ArrayList<E>();
+		ArrayList<E> lista2 = new ArrayList<E>();
+		ArrayList<E> lista3 = new ArrayList<E>();
+		
+		System.out.println("2. Stock Minimo: "+stockMin+" Stock Maximo: "+stockMax+" Costo Minimo: "+costoMin+" Costo Maximo: "+ costoMax);
+		
+		lista1=rangoStock(nombre,stockMin,stockMax,lista1);
+		lista2=rangoCosto(nombre,costoMin,costoMax,lista2);
+		
+		for(int i=0;i< lista1.size() ;i++) {
+		 	if(lista2.contains(lista1.get(i))) lista3.add(lista1.get(i));
+		}
+		
+		Collections.sort(lista3);
+		
+		return lista3;
+	}
+	
+	public ArrayList<E> rangoStock(String nombre, int stockMin,int stockMax,ArrayList<E> lista) {
+		
+		if(this.izquierdo.esVacio()&&this.derecho.esVacio()) {
+			if (((Insumo) this.valor).getStock() >= stockMin  && ((Insumo) this.valor).getStock() <= stockMax) {if(((Insumo) this.valor).nombreParecido(nombre)) lista.add(valor);}
+		}
+		
+		else if (((Insumo) this.valor).getStock() < stockMin) {
+				lista = this.derecho.rangoStock(nombre,stockMin,stockMax,lista);
+		}
+		
+		else if (((Insumo) this.valor).getStock() > stockMax){
+			lista = this.izquierdo.rangoStock(nombre,stockMin,stockMax,lista);
+		}
+		
+		else if (((Insumo) this.valor).getStock() >= stockMin  && ((Insumo) this.valor).getStock() <= stockMax) {
+			if(((Insumo) this.valor).nombreParecido(nombre)) lista.add(valor);
+			lista = this.derecho.rangoStock(nombre,stockMin,stockMax,lista);
+			lista = this.izquierdo.rangoStock(nombre,stockMin,stockMax,lista);
+		}
 		
 		return lista;
 	}
 	
-	public ArrayList<E> rangoAux(int ini,int fin,ArrayList<E> lista) {
+	public ArrayList<E> rangoCosto(String nombre,double costoMin, double costoMax,ArrayList<E> lista) {
 		
 		if(this.izquierdo.esVacio()&&this.derecho.esVacio()) {
-			if (((Insumo) this.valor).getStock() >= ini  && ((Insumo) this.valor).getStock() <= fin) {lista.add(valor);}
+			if (((Insumo) this.valor).getCosto() >= costoMin  && ((Insumo) this.valor).getCosto() <= costoMax) {if(((Insumo) this.valor).nombreParecido(nombre)) lista.add(valor);}
 		}
 		
-		else if (((Insumo) this.valor).getStock() < ini) {
-			lista = this.derecho.rangoAux(ini ,fin,lista);
+		else if (((Insumo) this.valor).getCosto() < costoMin) {
+				lista = this.derecho.rangoCosto(nombre,costoMin,costoMax,lista);
 		}
 		
-		else if (((Insumo) this.valor).getStock() > fin) {
-			lista = this.izquierdo.rangoAux(ini ,fin,lista);
+		else if ((((Insumo) this.valor).getCosto() > costoMax)){
+			lista = this.izquierdo.rangoCosto(nombre,costoMin,costoMax,lista);
 		}
 		
-		else if (((Insumo) this.valor).getStock() >= ini  && ((Insumo) this.valor).getStock() <= fin) {
-			lista.add(valor);
-			lista = this.derecho.rangoAux(ini,fin,lista);
-			lista = this.izquierdo.rangoAux(ini,fin,lista);
+		else if (((Insumo) this.valor).getCosto() >= costoMin  && ((Insumo) this.valor).getCosto() <= costoMax) {
+			if(((Insumo) this.valor).nombreParecido(nombre)) lista.add(valor);
+			lista = this.derecho.rangoCosto(nombre,costoMin,costoMax,lista);
+			lista = this.izquierdo.rangoCosto(nombre,costoMin,costoMax,lista);
 		}
 		
 		return lista;
 	}
+	
 }

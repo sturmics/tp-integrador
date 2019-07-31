@@ -1,4 +1,4 @@
-package pantallas;
+package isi.died.tp.pantallas;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -19,6 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.DefaultComboBoxModel;
 import isi.died.tp.dominio.UnidadMedida;
+import java.awt.Font;
 
 public class BuscarCamion {
 
@@ -67,6 +68,7 @@ public class BuscarCamion {
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblId = new JLabel("ID:");
+		lblId.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblId.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblId.setBounds(44, 89, 46, 14);
 		frame.getContentPane().add(lblId);
@@ -77,16 +79,19 @@ public class BuscarCamion {
 		textField.setColumns(10);
 		
 		lblIngreseLosDatos = new JLabel("Ingrese los datos de búsqueda ");
+		lblIngreseLosDatos.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblIngreseLosDatos.setHorizontalAlignment(SwingConstants.LEFT);
 		lblIngreseLosDatos.setBounds(10, 45, 178, 14);
 		frame.getContentPane().add(lblIngreseLosDatos);
 		
 		lblBsquedaopcional = new JLabel("(opcional):");
+		lblBsquedaopcional.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblBsquedaopcional.setHorizontalAlignment(SwingConstants.LEFT);
 		lblBsquedaopcional.setBounds(10, 61, 150, 14);
 		frame.getContentPane().add(lblBsquedaopcional);
 		
 		lblNombre = new JLabel("Dominio:");
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNombre.setBounds(20, 117, 70, 14);
 		frame.getContentPane().add(lblNombre);
@@ -96,7 +101,7 @@ public class BuscarCamion {
 		frame.getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 		
-		JButton btnNewButton = new JButton("Aceptar");
+		JButton btnNewButton = new JButton("Borrar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				OpcionesPlanta opP = new OpcionesPlanta();
@@ -122,12 +127,13 @@ public class BuscarCamion {
 		DefaultTableModel dtm= new DefaultTableModel(null,columnNames);
 		
 		JLabel lblPlantasEncontradas = new JLabel("Camiones encontrados:");
+		lblPlantasEncontradas.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblPlantasEncontradas.setHorizontalAlignment(SwingConstants.LEFT);
 		lblPlantasEncontradas.setBounds(198, 20, 128, 14);
 		frame.getContentPane().add(lblPlantasEncontradas);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(198, 45, 226, 151);
+		scrollPane.setBounds(198, 54, 226, 151);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -152,21 +158,25 @@ public class BuscarCamion {
 		));
 		
 		lblIdInsumo = new JLabel("Capacidad:");
+		lblIdInsumo.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblIdInsumo.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblIdInsumo.setBounds(20, 145, 70, 14);
 		frame.getContentPane().add(lblIdInsumo);
 		
 		lblAptoParaLquidos = new JLabel("Apto para líquidos:");
+		lblAptoParaLquidos.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblAptoParaLquidos.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblAptoParaLquidos.setBounds(-3, 170, 100, 14);
 		frame.getContentPane().add(lblAptoParaLquidos);
 		
 		JRadioButton rdbtnS = new JRadioButton("Sí");
+		rdbtnS.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		rdbtnS.setBounds(102, 166, 33, 23);
 		frame.getContentPane().add(rdbtnS);
 		
 		JRadioButton rdbtnNo = new JRadioButton("No");
-		rdbtnNo.setBounds(138, 166, 39, 23);
+		rdbtnNo.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		rdbtnNo.setBounds(137, 166, 39, 23);
 		frame.getContentPane().add(rdbtnNo);
 		
 		JSpinner spinner = new JSpinner();
@@ -174,9 +184,14 @@ public class BuscarCamion {
 		frame.getContentPane().add(spinner);
 		
 		JComboBox comboBox = new JComboBox();
+		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		comboBox.setModel(new DefaultComboBoxModel(UnidadMedida.values()));
 		comboBox.setBounds(142, 142, 46, 20);
 		frame.getContentPane().add(comboBox);
+		
+		JButton btnEditar = new JButton("Editar");
+		btnEditar.setBounds(214, 226, 100, 25);
+		frame.getContentPane().add(btnEditar);
 	} 
 	}
 

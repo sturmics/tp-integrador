@@ -1,4 +1,4 @@
-package pantallas;
+package isi.died.tp.pantallas;
 
 import java.awt.EventQueue;
 
@@ -101,13 +101,13 @@ public class VerInsumosFaltantes {
 		frame.getContentPane().add(btnSalir);
 		
 		JButton btnAtrs = new JButton("Atrás");
-		btnAtrs.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GestionDePlantas gestionP = new GestionDePlantas();
-				gestionP.main(null);
-				frame.dispose();
-			}
-		});
+//		btnAtrs.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+	//			GestionDePlantas gestionP = new GestionDePlantas();
+		//		gestionP.main(null);
+		//		frame.dispose();
+	//		}
+//		});
 		btnAtrs.setBounds(10, 225, 100, 25);
 		frame.getContentPane().add(btnAtrs);
 	}

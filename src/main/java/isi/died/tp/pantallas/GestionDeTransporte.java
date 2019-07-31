@@ -1,4 +1,4 @@
-package pantallas;
+package isi.died.tp.pantallas;
 
 import java.awt.EventQueue;
 
@@ -42,20 +42,12 @@ public class GestionDeTransporte {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton btnSeleccinDeEnvo = new JButton("Selección de envío");
-		btnSeleccinDeEnvo.setBounds(60, 60, 130, 40);
-		frame.getContentPane().add(btnSeleccinDeEnvo);
-		
 		JButton btnAgregarCamin = new JButton("Agregar camión");
-		btnAgregarCamin.setBounds(230, 60, 130, 40);
+		btnAgregarCamin.setBounds(147, 60, 130, 40);
 		frame.getContentPane().add(btnAgregarCamin);
 		
-		JButton btnVerListaCamiones = new JButton("Ver lista camiones");
-		btnVerListaCamiones.setBounds(60, 120, 130, 40);
-		frame.getContentPane().add(btnVerListaCamiones);
-		
 		JButton btnBuscarCamin = new JButton("Buscar camión");
-		btnBuscarCamin.setBounds(230, 120, 130, 40);
+		btnBuscarCamin.setBounds(147, 120, 130, 40);
 		frame.getContentPane().add(btnBuscarCamin);
 		
 		JButton btnAtrs = new JButton("Atrás");

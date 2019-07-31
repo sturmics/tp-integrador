@@ -1,4 +1,4 @@
-package pantallas;
+package isi.died.tp.pantallas;
 
 import java.awt.EventQueue;
 

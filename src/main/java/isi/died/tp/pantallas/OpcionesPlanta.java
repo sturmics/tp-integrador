@@ -1,6 +1,7 @@
-package pantallas;
+package isi.died.tp.pantallas;
 
 import java.awt.EventQueue;
+
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -13,19 +14,21 @@ import javax.swing.JList;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import isi.died.tp.dominio.*;
 
 public class OpcionesPlanta {
 
 	private JFrame frame;
+	private static Planta planta;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(Planta pl) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					OpcionesPlanta window = new OpcionesPlanta();
+					OpcionesPlanta window = new OpcionesPlanta(pl);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,7 +40,8 @@ public class OpcionesPlanta {
 	/**
 	 * Create the application.
 	 */
-	public OpcionesPlanta() {
+	public OpcionesPlanta(Planta pl) {
+		planta=pl;
 		initialize();
 	}
 

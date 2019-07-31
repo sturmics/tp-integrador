@@ -1,38 +1,52 @@
-package pantallas;
+package isi.died.tp.pantallas;
 
 import java.awt.EventQueue;
+
 
 
 import javax.swing.JFrame;
 import java.awt.GridLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
 import java.awt.FlowLayout;
 import javax.swing.table.DefaultTableModel;
+
+import isi.died.tp.datos.Listas;
+import isi.died.tp.dominio.*;
+import isi.died.tp.estructuras.ArbolBinarioBusqueda;
+
 import java.awt.Color;
 import javax.swing.JScrollPane;
 
 public class BuscarPlanta {
 
 	private JFrame frame;
-	private JTextField textField;
+	private JTextField tfID;
+	private JTextField tfNombre;
 	private JLabel lblIngreseLosDatos;
 	private JLabel lblBsquedaopcional;
 	private JLabel lblNombre;
-	private JTextField textField_1;
 	private JTable table;
-	private JLabel lblIdInsumo;
-	private JTextField textField_2;
+	private ListSelectionModel model;
+	private Planta planta;
+	
+	
 
 	/**
 	 * Launch the application.
@@ -72,10 +86,10 @@ public class BuscarPlanta {
 		lblId.setBounds(34, 104, 46, 14);
 		frame.getContentPane().add(lblId);
 		
-		textField = new JTextField();
-		textField.setBounds(85, 101, 86, 20);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		tfID = new JTextField();
+		tfID.setBounds(85, 101, 86, 20);
+		frame.getContentPane().add(tfID);
+		tfID.setColumns(10);
 		
 		lblIngreseLosDatos = new JLabel("Ingrese los datos de búsqueda ");
 		lblIngreseLosDatos.setHorizontalAlignment(SwingConstants.LEFT);
@@ -92,21 +106,22 @@ public class BuscarPlanta {
 		lblNombre.setBounds(10, 135, 70, 14);
 		frame.getContentPane().add(lblNombre);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(85, 132, 86, 20);
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		tfNombre = new JTextField();
+		tfNombre.setBounds(85, 132, 86, 20);
+		frame.getContentPane().add(tfNombre);
+		tfNombre.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Aceptar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				OpcionesPlanta opP = new OpcionesPlanta();
-				opP.main(null);
+				OpcionesPlanta opP = new OpcionesPlanta(planta);
+				opP.main(planta);
 				frame.dispose();
 			}
 		});
 		btnNewButton.setBounds(324, 226, 100, 25);
 		frame.getContentPane().add(btnNewButton);
+		btnNewButton.setEnabled(false);
 		
 		JButton btnNewButton_1 = new JButton("Atrás");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -119,9 +134,6 @@ public class BuscarPlanta {
 		btnNewButton_1.setBounds(10, 226, 100, 25);
 		frame.getContentPane().add(btnNewButton_1);
 		
-		String[] columnNames = {"ID","Años"};
-		DefaultTableModel dtm= new DefaultTableModel(null,columnNames);
-		
 		JLabel lblPlantasEncontradas = new JLabel("Plantas encontradas:");
 		lblPlantasEncontradas.setHorizontalAlignment(SwingConstants.LEFT);
 		lblPlantasEncontradas.setBounds(198, 20, 128, 14);
@@ -131,35 +143,65 @@ public class BuscarPlanta {
 		scrollPane.setBounds(198, 45, 226, 151);
 		frame.getContentPane().add(scrollPane);
 		
-		table = new JTable();
+		Listas datos = new Listas();
+		
+		Object[][] datosPlantas=datos.getBusquedaPlantas();
+		String[] columnas= {"ID","Nombre"};
+		
+		table = new JTable(datosPlantas,columnas);
 		scrollPane.setViewportView(table);
-		table.setBackground(Color.LIGHT_GRAY);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-			},
-			new String[] {
-				"ID", "Nombre"
+		model=table.getSelectionModel();
+		table.setAutoCreateRowSorter(true);
+		table.editingCanceled(null);
+		
+		tfID.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				btnNewButton.setEnabled(false);
+				
+				table= new JTable(actualizarTabla(datosPlantas,tfID.getText(),tfNombre.getText()),columnas);
+				scrollPane.setViewportView(table);
+				model=table.getSelectionModel();
+				table.setAutoCreateRowSorter(true);
 			}
-		));
+		});
 		
-		lblIdInsumo = new JLabel("ID Insumo:");
-		lblIdInsumo.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblIdInsumo.setBounds(10, 167, 70, 14);
-		frame.getContentPane().add(lblIdInsumo);
-		
-		textField_2 = new JTextField();
-		textField_2.setBounds(85, 164, 86, 20);
-		frame.getContentPane().add(textField_2);
-		textField_2.setColumns(10);
+		model.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged (ListSelectionEvent e) {
+				if(!model.isSelectionEmpty()) {
+						btnNewButton.setEnabled(true);
+						
+						int aux1=(int) table.getValueAt(model.getMinSelectionIndex(), 0);
+						String aux2=(String) table.getValueAt(model.getMinSelectionIndex(), 1);
+						
+						planta=(new Listas()).buscarPlanta(aux1,aux2);
+					}
+				}
+			});
 	}
-}
+		
+		
+		
+		public Object[][] actualizarTabla(Object[][] datos, String id, String nombre){
+			
+			Listas datosFinal = new Listas();
+			ArrayList<Planta> listaPlantas= new ArrayList<Planta>();
+			String idAux;
+			String nombreAux;
+			
+			for(int i=0; i<datos.length;i++) {
+				idAux = Integer.toString((int)datos[i][0]);
+				nombreAux = (String)datos[i][1];
+				if(nombreAux.contains(nombre) && idAux.contains(id)) {
+					
+				}
+			}
+			
+			
+			
+		}
+	
+	
+	
+	//
+	}

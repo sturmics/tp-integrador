@@ -1,6 +1,7 @@
-package pantallas;
+package isi.died.tp.pantallas;
 
 import java.awt.EventQueue;
+
 
 import javax.swing.JFrame;
 //import net.miginfocom.swing.MigLayout;

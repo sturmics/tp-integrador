@@ -1,39 +1,39 @@
-package pantallas;
+package isi.died.tp.pantallas;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JTable;
-import java.awt.BorderLayout;
-import javax.swing.ListSelectionModel;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import java.awt.event.ActionListener;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
 
-public class VerInsumosDePlanta {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+
+import isi.died.tp.dominio.Planta;
+
+public class VerInsumosDePlanta2 {
 
 	private JFrame frame;
-	private JTable table;
 	private JScrollPane scrollPane;
 	private JLabel lblId;
 	private JLabel lblNombre;
-
+	private JLabel lblIdPlanta;
+	private JLabel lblNombrePlanta;
+	private static Planta planta;
+	private JTable table;
+	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(Planta pl) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VerInsumosDePlanta window = new VerInsumosDePlanta();
+					VerInsumosDePlanta2 window = new VerInsumosDePlanta2(pl);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +45,8 @@ public class VerInsumosDePlanta {
 	/**
 	 * Create the application.
 	 */
-	public VerInsumosDePlanta() {
+	public VerInsumosDePlanta2(Planta pl) {
+		planta=pl;
 		initialize();
 	}
 
@@ -57,11 +58,13 @@ public class VerInsumosDePlanta {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setTitle("Ver Insumos");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+frame.getContentPane().setLayout(null);
 		
 		JButton btnAtrs = new JButton("Atrás");
 		btnAtrs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				VerPlantas verplantas=new VerPlantas();
+				verplantas.main(null);
 				frame.dispose();
 			}
 		});
@@ -72,38 +75,34 @@ public class VerInsumosDePlanta {
 		scrollPane.setBounds(15, 64, 402, 144);
 		frame.getContentPane().add(scrollPane);
 		
-		table = new JTable();
+		Object[][] datosStocks= planta.getDatosStock();
+		String[] columnas= {"Insumo","Cantidad","Cantidad Mínima"};
+		
+		table = new JTable(datosStocks, columnas);
+		table.editingCanceled(null);
 		scrollPane.setViewportView(table);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-			},
-			new String[] {
-				"Insumo", "Cantidad", "Cantidad m\u00EDnima"
-			}
-		));
-		table.getColumnModel().getColumn(2).setPreferredWidth(93);
-		table.setFillsViewportHeight(true);
-		table.setColumnSelectionAllowed(true);
-		table.setCellSelectionEnabled(true);
-		table.setBackground(Color.LIGHT_GRAY);
 		
 		lblId = new JLabel("ID:");
 		lblId.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblId.setBounds(14, 21, 46, 14);
+		lblId.setBounds(18, 21, 46, 14);
 		frame.getContentPane().add(lblId);
 		
 		lblNombre = new JLabel("Nombre:");
 		lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNombre.setBounds(0, 39, 60, 14);
+		lblNombre.setBounds(4, 39, 60, 14);
 		frame.getContentPane().add(lblNombre);
+		
+		String id = Integer.toString(planta.getId());
+		lblIdPlanta = new JLabel(id);
+		lblIdPlanta.setHorizontalAlignment(SwingConstants.LEFT);
+		lblIdPlanta.setBounds(79, 21, 46, 14);
+		frame.getContentPane().add(lblIdPlanta);
+		
+		lblNombrePlanta = new JLabel(planta.getNombre());
+		lblNombrePlanta.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNombrePlanta.setBounds(79, 39, 140, 14);
+		frame.getContentPane().add(lblNombrePlanta);
+		
 	}
+
 }

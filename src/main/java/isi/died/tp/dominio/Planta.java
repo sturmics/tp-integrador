@@ -47,6 +47,11 @@ public class Planta {
 	public void setStocks(ArrayList<Stock> stocks) {
 		this.stocks = stocks;
 	}
+	
+	public void agregarStock(Stock stock) {
+		this.stocks.add(stock);
+	}
+
 
 	public ArrayList<Insumo> stockEntre(int s1, int s2){
 		
@@ -72,6 +77,18 @@ public class Planta {
 		if (stock.getCantidad()<stock.getPuntoPedido())
 			return true;
 		return false; 
+	}
+	
+	
+	public Object[][] getDatosStock(){
+		Object[][] p= new Object[this.stocks.size()][3];
+		
+		for(int i=0; i<this.stocks.size(); i++) {
+			p[i][0]= stocks.get(i).getInsumo().getDescripcion();
+			p[i][1]= stocks.get(i).getCantidad();
+			p[i][2]= stocks.get(i).getPuntoPedido();
+		}
+		return p;
 	}
 
 }

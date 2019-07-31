@@ -1,6 +1,6 @@
 //VER LINEAS 60 Y 61
 
-package pantallas;
+package isi.died.tp.pantallas;
 
 import java.awt.EventQueue;
 
@@ -71,8 +71,8 @@ public class PantallaPrincipal {
 		JButton gestionInsumos = new JButton("Gestión de Insumos");
 		gestionInsumos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			//	GestionInsumos gInsumo = new GestionInsumos();
-			//	gInsumo.main(null);
+				GestionInsumos gInsumo = new GestionInsumos();
+				gInsumo.main(null);
 				frame.dispose();
 			}
 		});

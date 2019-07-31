@@ -1,4 +1,4 @@
-package pantallas;
+package isi.died.tp.pantallas;
 
 import java.awt.EventQueue;
 
@@ -45,7 +45,7 @@ public class GestionDeLogistica {
 		frame.getContentPane().setLayout(null);
 		
 		JButton btnVerMapa = new JButton("Ver mapa");
-		btnVerMapa.setBounds(150, 40, 130, 40);
+		btnVerMapa.setBounds(70, 60, 130, 40);
 		frame.getContentPane().add(btnVerMapa);
 		
 		JButton btnCrearRuta = new JButton("Crear ruta");
@@ -53,11 +53,11 @@ public class GestionDeLogistica {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnCrearRuta.setBounds(150, 100, 130, 40);
+		btnCrearRuta.setBounds(220, 60, 130, 40);
 		frame.getContentPane().add(btnCrearRuta);
 		
 		JButton btnFlujoMximoDe = new JButton("Flujo máximo de red");
-		btnFlujoMximoDe.setBounds(150, 160, 130, 40);
+		btnFlujoMximoDe.setBounds(70, 120, 130, 40);
 		frame.getContentPane().add(btnFlujoMximoDe);
 		
 		JButton btnAtrs = new JButton("Atrás");
@@ -67,6 +67,10 @@ public class GestionDeLogistica {
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.setBounds(324, 225, 100, 25);
 		frame.getContentPane().add(btnSalir);
+		
+		JButton btnSeleccinDeEnvo = new JButton("Selección de envío");
+		btnSeleccinDeEnvo.setBounds(220, 120, 130, 40);
+		frame.getContentPane().add(btnSeleccinDeEnvo);
 	}
 
 }

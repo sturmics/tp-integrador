@@ -1,6 +1,7 @@
-package pantallas;
+package isi.died.tp.pantallas;
 
 import java.awt.EventQueue;
+
 
 import javax.swing.JFrame;
 import javax.swing.JTable;
@@ -69,13 +70,13 @@ public class PantallaAgregarStockPlantaX {
 	//	frame.getContentPane().setLayout(new MigLayout("", "[][grow]", "[][][][][][][grow][][grow][][][]"));
 		
 		lblDatosDelStock = new JLabel("Datos del stock :");
-		frame.getContentPane().add(lblDatosDelStock, "cell 0 0,alignx right");
+		frame.getContentPane().add(lblDatosDelStock);
 		
 		lblIdInsumo = new JLabel("ID Insumo :");
-		frame.getContentPane().add(lblIdInsumo, "cell 0 1,alignx trailing");
+		frame.getContentPane().add(lblIdInsumo);
 		
 		textIdInsumo = new JTextField();
-		frame.getContentPane().add(textIdInsumo, "cell 1 1,alignx left");
+		frame.getContentPane().add(textIdInsumo);
 		textIdInsumo.setColumns(10);
 		
 		lblCantidad = new JLabel("Cantidad :");

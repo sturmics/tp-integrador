@@ -2,7 +2,7 @@
 //FALTAN LOS BOTONES ATRÁS Y CREAR PLANTA, 
 
 
-package pantallas;
+package isi.died.tp.pantallas;
 
 import java.awt.EventQueue;
 
@@ -63,11 +63,11 @@ public class GestionDePlantas {
 				frame.dispose();
 			}
 		});
-		btnVerPlantas.setBounds(60, 60, 130, 40);
+		btnVerPlantas.setBounds(144, 41, 130, 40);
 		frame.getContentPane().add(btnVerPlantas);
 		
 		JButton btnCrearPlanta = new JButton("Crear planta");
-		btnCrearPlanta.setBounds(60, 120, 130, 40);
+		btnCrearPlanta.setBounds(144, 92, 130, 40);
 		frame.getContentPane().add(btnCrearPlanta);
 		btnCrearPlanta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -85,19 +85,8 @@ public class GestionDePlantas {
 				frame.dispose();
 			}
 		});
-		btnBuscarPlanta.setBounds(230, 60, 130, 40);
+		btnBuscarPlanta.setBounds(144, 143, 130, 40);
 		frame.getContentPane().add(btnBuscarPlanta);
-		
-		JButton btnVerInsumosFaltantes = new JButton("Ver insumos \r\nfaltantes");
-		btnVerInsumosFaltantes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				VerInsumosFaltantes faltantes = new VerInsumosFaltantes();
-				faltantes.main(null);
-				frame.dispose();
-			}
-		});
-		btnVerInsumosFaltantes.setBounds(230, 120, 130, 40);
-		frame.getContentPane().add(btnVerInsumosFaltantes);
 		
 		JButton btnAtrs = new JButton("Atrás");
 		btnAtrs.addActionListener(new ActionListener() {
