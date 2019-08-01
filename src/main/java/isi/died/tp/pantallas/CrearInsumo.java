@@ -68,7 +68,7 @@ public class CrearInsumo {
 		tfId.setColumns(10);
 		
 		JButton agregarInsumo = new JButton("Agregar Insumo");
-		agregarInsumo.setBounds(365, 306, 109, 23);
+		agregarInsumo.setBounds(334, 305, 140, 25);
 		frame.getContentPane().add(agregarInsumo);
 		
 		JButton Atrás = new JButton("Atrás");

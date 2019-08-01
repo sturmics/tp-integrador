@@ -14,6 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
+import isi.died.tp.dominio.Camion;
+
 public class EditarCamion {
 
 	private JFrame frame;
@@ -23,8 +25,10 @@ public class EditarCamion {
 	private JTextField textDominioCamion;
 	private JTextField textCostoXKm;
 	private JTextField textCapacidad;
+	private static Camion camion;
 
 	private final ButtonGroup buttonGroupLiquidos = new ButtonGroup();
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -33,7 +37,7 @@ public class EditarCamion {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EditarCamion window = new EditarCamion();
+					EditarCamion window = new EditarCamion(camion);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +49,8 @@ public class EditarCamion {
 	/**
 	 * Create the application.
 	 */
-	public EditarCamion() {
+	public EditarCamion(Camion cam) {
+		camion=cam;
 		initialize();
 	}
 
@@ -57,7 +62,8 @@ public class EditarCamion {
 		frame.setBounds(100, 100, 450, 360);
 		frame.setTitle("Editar Camión");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-frame.getContentPane().setLayout(null);
+		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
 		
 		JLabel lblDatosDelVehculo = new JLabel("Datos del vehículo:");
 		lblDatosDelVehculo.setBounds(10, 10, 200, 20);
@@ -69,9 +75,10 @@ frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(lblId);
 		
 		textIdCamion = new JTextField();
-		textIdCamion.setBounds(202, 249, 130, 20);
+		textIdCamion.setBounds(202, 41, 130, 20);
 		frame.getContentPane().add(textIdCamion);
 		textIdCamion.setColumns(10);
+		textIdCamion.setText(camion.getId());
 		
 		JLabel lblMarca = new JLabel("Marca:");
 		lblMarca.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -79,9 +86,10 @@ frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(lblMarca);
 		
 		textMarcaCamion = new JTextField();
-		textMarcaCamion.setBounds(202, 41, 130, 20);
+		textMarcaCamion.setBounds(202, 72, 130, 20);
 		frame.getContentPane().add(textMarcaCamion);
 		textMarcaCamion.setColumns(10);
+		textMarcaCamion.setText(camion.getMarca());
 		
 		JLabel lblNewLabel = new JLabel("Modelo :");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -89,9 +97,10 @@ frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(lblNewLabel);
 		
 		textModeloCamion = new JTextField();
-		textModeloCamion.setBounds(202, 72, 130, 20);
+		textModeloCamion.setBounds(202, 103, 130, 20);
 		textModeloCamion.setColumns(10);
 		frame.getContentPane().add(textModeloCamion);
+		textModeloCamion.setText(camion.getModelo());
 		
 		JLabel lblNewLabel_1 = new JLabel("Dominio :");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -99,19 +108,15 @@ frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		textDominioCamion = new JTextField();
-		textDominioCamion.setBounds(202, 103, 130, 20);
+		textDominioCamion.setBounds(202, 134, 130, 20);
 		frame.getContentPane().add(textDominioCamion);
 		textDominioCamion.setColumns(10);
+		textDominioCamion.setText(camion.getDominio());
 		
 		JLabel lblAo = new JLabel("Año :");
 		lblAo.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblAo.setBounds(0, 165, 200, 20);
 		frame.getContentPane().add(lblAo);
-		
-		JSpinner spinnerCamion = new JSpinner();
-		spinnerCamion.setBounds(202, 165, 130, 20);
-		spinnerCamion.setModel(new SpinnerNumberModel(2010, 1960, 2050, 1));
-		frame.getContentPane().add(spinnerCamion);
 		
 		JLabel lblCostoPorKm = new JLabel("Costo por Km :");
 		lblCostoPorKm.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -119,9 +124,10 @@ frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(lblCostoPorKm);
 		
 		textCostoXKm = new JTextField();
-		textCostoXKm.setBounds(202, 134, 130, 20);
+		textCostoXKm.setBounds(202, 196, 130, 20);
 		frame.getContentPane().add(textCostoXKm);
 		textCostoXKm.setColumns(10);
+		textCostoXKm.setText(Double.toString(camion.getCostoXKM()));
 		
 		JLabel lblEsAptoPara = new JLabel("¿Es apto para transportar líquidos?");
 		lblEsAptoPara.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -138,9 +144,10 @@ frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(lblCapacidad);
 		
 		textCapacidad = new JTextField();
-		textCapacidad.setBounds(202, 196, 130, 20);
+		textCapacidad.setBounds(202, 250, 130, 20);
 		frame.getContentPane().add(textCapacidad);
 		textCapacidad.setColumns(10);
+		textCapacidad.setText(Double.toString(camion.getCapacidad()));
 		
 		JButton btnAtrs = new JButton("Atrás");
 		btnAtrs.addActionListener(new ActionListener() {
@@ -169,6 +176,16 @@ frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(rdbtnNo);
 		buttonGroupLiquidos.add(rdbtnNo);
 		buttonGroupLiquidos.add(rdbtnS);
+		if(camion.isAptoLiq()) {
+			rdbtnS.setSelected(true);
+		}else {rdbtnNo.setSelected(true);}
+		
+		
+		textField = new JTextField();
+		textField.setBounds(202, 165, 130, 20);
+		frame.getContentPane().add(textField);
+		textField.setColumns(10);
+		textField.setText(Integer.toString(camion.getAnio()));
 
 	}
 

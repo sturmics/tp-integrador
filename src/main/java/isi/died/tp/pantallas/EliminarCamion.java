@@ -10,9 +10,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import isi.died.tp.dominio.Camion;
+
 public class EliminarCamion {
 
 	private JFrame frame;
+	private static Camion camion;
 
 	/**
 	 * Launch the application.
@@ -21,7 +24,7 @@ public class EliminarCamion {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EliminarCamion window = new EliminarCamion();
+					EliminarCamion window = new EliminarCamion(camion);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -33,7 +36,8 @@ public class EliminarCamion {
 	/**
 	 * Create the application.
 	 */
-	public EliminarCamion() {
+	public EliminarCamion(Camion cam) {
+		camion=cam;
 		initialize();
 	}
 
@@ -47,6 +51,7 @@ public class EliminarCamion {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
 		
 		JLabel lblNewLabel = new JLabel("ID:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -58,16 +63,15 @@ public class EliminarCamion {
 		lblNewLabel_1.setBounds(129, 65, 50, 14);
 		frame.getContentPane().add(lblNewLabel_1);
 		
-	//	String id = Integer.toString(planta.getId());
-	//	JLabel lblIdPlanta = new JLabel(id);
-	//	lblIdPlanta.setHorizontalAlignment(SwingConstants.LEFT);
-	//	lblIdPlanta.setBounds(190, 59, 80, 14);
-	//	frame.getContentPane().add(lblIdPlanta);
+		JLabel idCam = new JLabel(camion.getId());
+		idCam.setHorizontalAlignment(SwingConstants.LEFT);
+		idCam.setBounds(190, 40, 80, 14);
+		frame.getContentPane().add(idCam);
 		
-	//	JLabel lblNombrePlanta = new JLabel(planta.getNombre());
-	//	lblNombrePlanta.setHorizontalAlignment(SwingConstants.LEFT);
-	//	lblNombrePlanta.setBounds(190, 81, 140, 14);
-	//	frame.getContentPane().add(lblNombrePlanta);
+		JLabel domCam = new JLabel(camion.getDominio());
+		domCam.setHorizontalAlignment(SwingConstants.LEFT);
+		domCam.setBounds(189, 65, 140, 14);
+		frame.getContentPane().add(domCam);
 		
 		JLabel lbldeseaEliminarLa = new JLabel("Si presiona \"Eliminar\" el camión seleccionado\r\n");
 		lbldeseaEliminarLa.setLabelFor(frame);
@@ -115,6 +119,22 @@ public class EliminarCamion {
 		lblAptoParaLquidos.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblAptoParaLquidos.setBounds(39, 118, 140, 14);
 		frame.getContentPane().add(lblAptoParaLquidos);
+		
+		JLabel capCam = new JLabel(Double.toString(camion.getCapacidad()));
+		capCam.setHorizontalAlignment(SwingConstants.LEFT);
+		capCam.setBounds(190, 90, 80, 14);
+		frame.getContentPane().add(capCam);
+		
+		String liq = new String();
+		if(camion.isAptoLiq()) {
+			liq = "Si";
+		}else {
+			liq = "No";
+		}
+		JLabel liqCam = new JLabel(liq);
+		liqCam.setHorizontalAlignment(SwingConstants.LEFT);
+		liqCam.setBounds(190, 118, 140, 14);
+		frame.getContentPane().add(liqCam);
 	}
 
 }

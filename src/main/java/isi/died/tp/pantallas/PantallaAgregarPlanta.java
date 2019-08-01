@@ -50,6 +50,7 @@ public class PantallaAgregarPlanta {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
 		
 		JLabel lblId = new JLabel("ID :");
 		lblId.setBounds(124, 40, 18, 14);

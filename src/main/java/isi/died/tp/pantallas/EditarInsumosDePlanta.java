@@ -58,6 +58,7 @@ public class EditarInsumosDePlanta {
 		frame.setTitle("Editar Insumos");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(20, 21, 394, 154);

@@ -43,6 +43,7 @@ public class GestionDeTransporte {
 		frame.setTitle("Gestión de Transporte");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
 		
 		JButton btnAgregarCamin = new JButton("Agregar camión");
 		btnAgregarCamin.addActionListener(new ActionListener() {

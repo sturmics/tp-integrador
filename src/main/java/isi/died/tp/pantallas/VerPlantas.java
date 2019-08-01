@@ -59,6 +59,7 @@ public class VerPlantas {
 		frame.setTitle("Ver Plantas");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(50, 27, 322, 164);

@@ -21,9 +21,9 @@ public class Listas {
 		listaRutas = new ArrayList<Ruta>();
 		grafo = new GrafoPlanta();
 		
-		Insumo i1=new Insumo("0","I1a",500,5.6,5000,false,UnidadMedida.UNIDAD);
-		Insumo i2=new Insumo("1","I2a",600,2.4,6000,false,UnidadMedida.UNIDAD);
-		Insumo i3=new Insumo("2","I3",1100,2,5000,false,UnidadMedida.UNIDAD);
+		Insumo i1=new Insumo("0","I1a",500,5.6,5000,true,UnidadMedida.UNIDAD);
+		Insumo i2=new Insumo("1","I2a",600,2.4,6000,true,UnidadMedida.UNIDAD);
+		Insumo i3=new Insumo("2","I3",1100,2,5000,true,UnidadMedida.UNIDAD);
 		Insumo i4=new Insumo("3","I4",200,1,100,false,UnidadMedida.UNIDAD);
 		Insumo i5=new Insumo("4","I5",100,5.6,200,false,UnidadMedida.UNIDAD);
 		Insumo i6=new Insumo("5","I6",600,2.4,40,false,UnidadMedida.UNIDAD);
@@ -33,6 +33,8 @@ public class Listas {
 		Insumo i10=new Insumo("9","I2b",600,2.4,2000,false,UnidadMedida.UNIDAD);
 		Insumo i11=new Insumo("10","I9",700,2,700,false,UnidadMedida.UNIDAD);
 		Insumo i12=new Insumo("11","I10",300,1,300,false,UnidadMedida.UNIDAD);
+		
+		
 		
 		listaInsumos.add(i1);
 		listaInsumos.add(i2);
@@ -100,6 +102,31 @@ public class Listas {
 		grafo.conectar(p2, acopioFinal, 4);
 		grafo.conectar(p1, p3, 5);
 		grafo.conectar(p1, p2, 6);
+		
+		Camion c1 = new Camion("001","m1","mod1","AAA111",2010,50,true,3.4);
+		Camion c2 = new Camion("002","m1","mod2","AAA222",2011,50,false,4.4);
+		Camion c3 = new Camion("003","m1","mod3","AAA333",2012,50,true,5);
+		Camion c4 = new Camion("004","m2","mod1","AAA444",2009,50,false,3);
+		Camion c5 = new Camion("005","m2","mod2","AAA555",2008,50,true,6.7);
+		Camion c6 = new Camion("006","m2","mod3","BBB111",2010,50,false,3.4);
+		Camion c7 = new Camion("007","m3","mod1","BBB222",2011,50,true,7);
+		Camion c8 = new Camion("008","m3","mod2","BBB333",2012,50,false,4);
+		Camion c9 = new Camion("009","m3","mod3","BBB444",2013,50,true,5.5);
+		Camion c10 = new Camion("010","m4","mod1","BBB555",2014,50,false,6.5);
+		Camion c11 = new Camion("011","m4","mod2","CCC111",2015,50,true,10);
+		
+		listaCamiones.add(c1);
+		listaCamiones.add(c2);
+		listaCamiones.add(c3);
+		listaCamiones.add(c4);
+		listaCamiones.add(c5);
+		listaCamiones.add(c6);
+		listaCamiones.add(c7);
+		listaCamiones.add(c8);
+		listaCamiones.add(c9);
+		listaCamiones.add(c10);
+		listaCamiones.add(c11);
+		
 	}
 
 	public ArrayList<Insumo> getListaInsumos() {
@@ -164,7 +191,7 @@ public class Listas {
 			aux[i][1]=listaCamiones.get(i).getDominio();
 			aux[i][2]=listaCamiones.get(i).getCapacidad();
 			if(listaCamiones.get(i).isAptoLiq()) {
-				liq="Sí";
+				liq="Si";
 			} else {
 				liq="No";
 			}
@@ -194,6 +221,13 @@ public class Listas {
 	public Planta buscarPlanta(int id, String nombre) {
 		for(Planta pl:listaPlantas) {
 			if(pl.getId()==id && pl.getNombre().compareTo(nombre)==0) return pl;
+		}
+		return null;
+	}
+	
+	public Camion buscarCamion(String id, String dominio) {
+		for(Camion cam:listaCamiones) {
+			if(cam.getId().contains(id) && cam.getDominio().contains(dominio)) return cam;
 		}
 		return null;
 	}

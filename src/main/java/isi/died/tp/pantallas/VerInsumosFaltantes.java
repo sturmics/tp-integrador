@@ -54,6 +54,7 @@ public class VerInsumosFaltantes {
 		frame.setTitle("Ver Insumos Faltantes");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"0001", "0002", "0003", "0004", "0005", "0006"}));

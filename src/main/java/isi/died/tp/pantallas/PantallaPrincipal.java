@@ -47,7 +47,7 @@ public class PantallaPrincipal {
 		frame.getContentPane().setLayout(null);
 		
 		JButton gestionPlantas = new JButton("Gestión de Plantas");
-		gestionPlantas.setBounds(60, 60, 130, 40);
+		gestionPlantas.setBounds(20, 60, 170, 40);
 		frame.getContentPane().add(gestionPlantas);
 		gestionPlantas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -58,7 +58,7 @@ public class PantallaPrincipal {
 		});
 		
 		JButton gestionLogistica = new JButton("Gestión de Logística");
-		gestionLogistica.setBounds(60, 120, 130, 40);
+		gestionLogistica.setBounds(20, 120, 170, 40);
 		frame.getContentPane().add(gestionLogistica);
 		gestionLogistica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -76,11 +76,11 @@ public class PantallaPrincipal {
 				frame.dispose();
 			}
 		});
-		gestionInsumos.setBounds(230, 60, 130, 40);
+		gestionInsumos.setBounds(230, 60, 170, 40);
 		frame.getContentPane().add(gestionInsumos);
 		
 		JButton gestionTransporte = new JButton("Gestión de Transporte");
-		gestionTransporte.setBounds(230, 120, 130, 40);
+		gestionTransporte.setBounds(230, 120, 170, 40);
 		frame.getContentPane().add(gestionTransporte);
 		gestionTransporte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

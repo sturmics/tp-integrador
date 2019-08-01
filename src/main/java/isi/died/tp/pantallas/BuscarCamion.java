@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,8 +26,12 @@ import javax.swing.JSpinner;
 import javax.swing.DefaultComboBoxModel;
 
 import isi.died.tp.datos.Listas;
+import isi.died.tp.dominio.Camion;
 import isi.died.tp.dominio.UnidadMedida;
 import java.awt.Font;
+import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
+import javax.swing.SpinnerNumberModel;
 
 public class BuscarCamion {
 
@@ -38,6 +45,9 @@ public class BuscarCamion {
 	private JLabel lblIdInsumo;
 	private JLabel lblAptoParaLquidos;
 	private ListSelectionModel model;
+	private Camion camion;
+	private final ButtonGroup buttonGroupLiq = new ButtonGroup();
+	private JTextField textField_2;
 
 
 	/**
@@ -72,6 +82,7 @@ public class BuscarCamion {
 		frame.setTitle("Buscar Camión");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
 		
 		JLabel lblId = new JLabel("ID:");
 		lblId.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -110,7 +121,7 @@ public class BuscarCamion {
 		JButton btnNewButton = new JButton("Borrar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EliminarCamion gestionP = new EliminarCamion();
+				EliminarCamion gestionP = new EliminarCamion(camion);
 				gestionP.main(null);
 				frame.dispose();
 			}
@@ -129,9 +140,6 @@ public class BuscarCamion {
 		});
 		btnNewButton_1.setBounds(10, 259, 100, 25);
 		frame.getContentPane().add(btnNewButton_1);
-		
-		String[] columnNames = {"ID","Años"};
-		DefaultTableModel dtm= new DefaultTableModel(null,columnNames);
 		
 		JLabel lblPlantasEncontradas = new JLabel("Camiones encontrados:");
 		lblPlantasEncontradas.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -166,24 +174,10 @@ public class BuscarCamion {
 		lblAptoParaLquidos.setBounds(-17, 166, 120, 14);
 		frame.getContentPane().add(lblAptoParaLquidos);
 		
-		JRadioButton rdbtnS = new JRadioButton("Sí");
-		rdbtnS.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		rdbtnS.setBounds(108, 162, 52, 23);
-		frame.getContentPane().add(rdbtnS);
-		
-		JRadioButton rdbtnNo = new JRadioButton("No");
-		rdbtnNo.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		rdbtnNo.setBounds(162, 162, 52, 23);
-		frame.getContentPane().add(rdbtnNo);
-		
-		JSpinner spinner = new JSpinner();
-		spinner.setBounds(108, 138, 93, 20);
-		frame.getContentPane().add(spinner);
-		
 		JButton btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EditarCamion edc=new EditarCamion();
+				EditarCamion edc=new EditarCamion(camion);
 				edc.main(null);
 				frame.dispose();
 			}
@@ -192,16 +186,214 @@ public class BuscarCamion {
 		frame.getContentPane().add(btnEditar);
 		btnEditar.setEnabled(false);
 		
+		JRadioButton rdbtnS = new JRadioButton("Sí");
+		rdbtnS.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnEditar.setEnabled(false);
+				btnNewButton.setEnabled(false);
+				table=new JTable(actualizarTabla(datosCamiones,textField.getText(),textField_1.getText(),textField_2.getText(),"1"), columnas);
+				scrollPane.setViewportView(table);
+				model=table.getSelectionModel();
+				table.setAutoCreateRowSorter(true);
+				
+				model.addListSelectionListener(new ListSelectionListener() {
+					public void valueChanged (ListSelectionEvent e) {
+						if(!model.isSelectionEmpty()) {
+								btnEditar.setEnabled(true);
+								btnNewButton.setEnabled(true);
+								
+								String aux1ID= (String) table.getValueAt(model.getMinSelectionIndex(), 0);
+								String aux2DOMINIO= (String) table.getValueAt(model.getMinSelectionIndex(), 1);
+								
+								camion=(new Listas()).buscarCamion(aux1ID,aux2DOMINIO);
+							}
+						}
+					});
+			}
+		});
+		buttonGroupLiq.add(rdbtnS);
+		rdbtnS.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		rdbtnS.setBounds(108, 162, 52, 23);
+		frame.getContentPane().add(rdbtnS);
+		
+		JRadioButton rdbtnNo = new JRadioButton("No");
+		rdbtnNo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnEditar.setEnabled(false);
+				btnNewButton.setEnabled(false);
+				table=new JTable(actualizarTabla(datosCamiones,textField.getText(),textField_1.getText(),textField_2.getText(),"2"), columnas);
+				scrollPane.setViewportView(table);
+				model=table.getSelectionModel();
+				table.setAutoCreateRowSorter(true);
+				
+				model.addListSelectionListener(new ListSelectionListener() {
+					public void valueChanged (ListSelectionEvent e) {
+						if(!model.isSelectionEmpty()) {
+								btnEditar.setEnabled(true);
+								btnNewButton.setEnabled(true);
+								
+								String aux1ID= (String) table.getValueAt(model.getMinSelectionIndex(), 0);
+								String aux2DOMINIO= (String) table.getValueAt(model.getMinSelectionIndex(), 1);
+								
+								camion=(new Listas()).buscarCamion(aux1ID,aux2DOMINIO);
+							}
+						}
+					});
+			}
+		});
+		buttonGroupLiq.add(rdbtnNo);
+		rdbtnNo.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		rdbtnNo.setBounds(162, 162, 52, 23);
+		frame.getContentPane().add(rdbtnNo);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(108, 141, 93, 20);
+		frame.getContentPane().add(textField_2);
+		textField_2.setColumns(10);
+		
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				btnEditar.setEnabled(false);
+				btnNewButton.setEnabled(false);
+				String liqq = "0";
+				if(rdbtnS.isSelected()) {
+					liqq="1";
+				}else if(rdbtnNo.isSelected()){
+					liqq="2";
+				}
+				table=new JTable(actualizarTabla(datosCamiones,textField.getText(),textField_1.getText(),textField_2.getText(),liqq), columnas);
+				scrollPane.setViewportView(table);
+				model=table.getSelectionModel();
+				table.setAutoCreateRowSorter(true);
+				
+				model.addListSelectionListener(new ListSelectionListener() {
+					public void valueChanged (ListSelectionEvent e) {
+						if(!model.isSelectionEmpty()) {
+								btnEditar.setEnabled(true);
+								btnNewButton.setEnabled(true);
+								
+								String aux1ID= (String) table.getValueAt(model.getMinSelectionIndex(), 0);
+								String aux2DOMINIO= (String) table.getValueAt(model.getMinSelectionIndex(), 1);
+								
+								camion=(new Listas()).buscarCamion(aux1ID,aux2DOMINIO);
+							}
+						}
+					});
+			}
+		});
+		
+		textField_1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				btnEditar.setEnabled(false);
+				btnNewButton.setEnabled(false);
+				String liqq = "0";
+				if(rdbtnS.isSelected()) {
+					liqq="1";
+				}else if(rdbtnNo.isSelected()){
+					liqq="2";
+				}
+				table=new JTable(actualizarTabla(datosCamiones,textField.getText(),textField_1.getText(),textField_2.getText(),liqq), columnas);
+				scrollPane.setViewportView(table);
+				model=table.getSelectionModel();
+				table.setAutoCreateRowSorter(true);
+				model.addListSelectionListener(new ListSelectionListener() {
+					public void valueChanged (ListSelectionEvent e) {
+						if(!model.isSelectionEmpty()) {
+								btnEditar.setEnabled(true);
+								btnNewButton.setEnabled(true);
+								
+								String aux1ID= (String) table.getValueAt(model.getMinSelectionIndex(), 0);
+								String aux2DOMINIO= (String) table.getValueAt(model.getMinSelectionIndex(), 1);
+								
+								camion=(new Listas()).buscarCamion(aux1ID,aux2DOMINIO);
+							}
+						}
+					});
+			}
+		});
+		
+		textField_2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				btnEditar.setEnabled(false);
+				btnNewButton.setEnabled(false);
+				String liqq = "0";
+				if(rdbtnS.isSelected()) {
+					liqq="1";
+				}else if(rdbtnNo.isSelected()){
+					liqq="2";
+				}
+				table=new JTable(actualizarTabla(datosCamiones,textField.getText(),textField_1.getText(),textField_2.getText(),liqq), columnas);
+				scrollPane.setViewportView(table);
+				model=table.getSelectionModel();
+				table.setAutoCreateRowSorter(true);
+				model.addListSelectionListener(new ListSelectionListener() {
+					public void valueChanged (ListSelectionEvent e) {
+						if(!model.isSelectionEmpty()) {
+								btnEditar.setEnabled(true);
+								btnNewButton.setEnabled(true);
+								
+								String aux1ID= (String) table.getValueAt(model.getMinSelectionIndex(), 0);
+								String aux2DOMINIO= (String) table.getValueAt(model.getMinSelectionIndex(), 1);
+								
+								camion=(new Listas()).buscarCamion(aux1ID,aux2DOMINIO);
+							}
+						}
+					});
+			}
+		});
+		
+		
+		
 		model.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged (ListSelectionEvent e) {
 				if(!model.isSelectionEmpty()) {
 						btnEditar.setEnabled(true);
 						btnNewButton.setEnabled(true);
+						
+						String aux1ID= (String) table.getValueAt(model.getMinSelectionIndex(), 0);
+						String aux2DOMINIO= (String) table.getValueAt(model.getMinSelectionIndex(), 1);
+						
+						camion=(new Listas()).buscarCamion(aux1ID,aux2DOMINIO);
 					}
 				}
 			});
 		
 	} 
+	
+	public Object[][] actualizarTabla(Object[][] datos, String id, String dominio, String cant, String liq){
+		
+		Listas datosFinal = new Listas();
+		ArrayList<Camion> listaCamiones = new ArrayList<Camion>();
+		String idAux;
+		String domAux;
+		String cantAux;
+		String liqAux;
+		Camion cam = new Camion();
+		for(int i=0; i<datos.length;i++) {
+			idAux=(String) datos[i][0];
+			domAux=(String) datos[i][1];
+			cantAux= Double.toString((double)datos[i][2]);
+			if(((String) datos[i][3]).contains("Si")) {
+				liqAux = "1";
+			}else { liqAux = "2";}
+			
+			if(idAux.contains(id) && domAux.contains(dominio) && cantAux.contains(cant)) {
+				if(liq.contains(liqAux)) {
+					cam = datosFinal.buscarCamion(idAux, domAux);
+					listaCamiones.add(cam);
+				} else if(liq.contains("0")){
+					cam = datosFinal.buscarCamion(idAux, domAux);
+					listaCamiones.add(cam);
+				}
+			}
+		}
+		
+		datosFinal.setListaCamiones(listaCamiones);
+		return datosFinal.getBusquedaCamiones();
+	  }
 	}
 
 

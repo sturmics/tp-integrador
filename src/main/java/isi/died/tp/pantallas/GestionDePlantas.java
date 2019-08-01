@@ -48,6 +48,7 @@ public class GestionDePlantas {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setTitle("Gestión de Plantas");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocationRelativeTo(null);
 		btnVerPlantras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}

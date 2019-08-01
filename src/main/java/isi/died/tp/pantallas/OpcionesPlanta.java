@@ -54,6 +54,7 @@ public class OpcionesPlanta {
 		frame.setTitle("Opciones");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
 		
 		JButton btnEditarPlanta = new JButton("Editar planta");
 		btnEditarPlanta.addActionListener(new ActionListener() {

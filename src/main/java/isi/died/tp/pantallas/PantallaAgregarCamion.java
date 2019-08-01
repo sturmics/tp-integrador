@@ -27,6 +27,7 @@ public class PantallaAgregarCamion {
 	private JTextField textCapacidad;
 
 	private final ButtonGroup buttonGroupLiquidos = new ButtonGroup();
+	private JTextField textField;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -57,6 +58,7 @@ public class PantallaAgregarCamion {
 		frame.setBounds(100, 100, 450, 350);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
 		
 		JLabel lblDatosDelVehculo = new JLabel("Datos del vehículo:");
 		lblDatosDelVehculo.setBounds(10, 10, 200, 20);
@@ -106,11 +108,6 @@ public class PantallaAgregarCamion {
 		lblAo.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblAo.setBounds(0, 165, 200, 20);
 		frame.getContentPane().add(lblAo);
-		
-		JSpinner spinnerCamion = new JSpinner();
-		spinnerCamion.setBounds(202, 165, 130, 20);
-		spinnerCamion.setModel(new SpinnerNumberModel(2010, 1960, 2050, 1));
-		frame.getContentPane().add(spinnerCamion);
 		
 		JLabel lblCostoPorKm = new JLabel("Costo por Km :");
 		lblCostoPorKm.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -168,6 +165,11 @@ public class PantallaAgregarCamion {
 		frame.getContentPane().add(rdbtnNo);
 		buttonGroupLiquidos.add(rdbtnNo);
 		buttonGroupLiquidos.add(rdbtnS);
+		
+		textField = new JTextField();
+		textField.setBounds(202, 165, 130, 20);
+		frame.getContentPane().add(textField);
+		textField.setColumns(10);
 	}
 
 }

@@ -67,6 +67,7 @@ public class PantallaAgregarStockPlantaX {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
 		
 		JLabel lblNewLabel = new JLabel("Datos del stock:");
 		lblNewLabel.setBounds(43, 47, 150, 14);

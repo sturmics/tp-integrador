@@ -80,6 +80,7 @@ public class BuscarPlanta {
 		frame.setTitle("Buscar Planta");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
 		
 		JLabel lblId = new JLabel("ID:");
 		lblId.setHorizontalAlignment(SwingConstants.RIGHT);
