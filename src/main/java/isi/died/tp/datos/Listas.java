@@ -156,6 +156,24 @@ public class Listas {
 		return aux;
 	}
 	
+	public Object[][] getBusquedaCamiones(){
+		Object[][] aux=new Object[this.listaCamiones.size()][4];
+		String liq = new String();
+		for(int i=0; i<this.listaCamiones.size(); i++) {
+			aux[i][0]=listaCamiones.get(i).getId();
+			aux[i][1]=listaCamiones.get(i).getDominio();
+			aux[i][2]=listaCamiones.get(i).getCapacidad();
+			if(listaCamiones.get(i).isAptoLiq()) {
+				liq="Sí";
+			} else {
+				liq="No";
+			}
+			aux[i][3]=liq;
+		}
+		
+		return aux;
+	}
+	
 	public Object[] listaInsumosString() {
 		Object [] aux = new Object[this.listaInsumos.size()]; 
 		

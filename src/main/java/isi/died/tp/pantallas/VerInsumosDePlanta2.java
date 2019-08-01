@@ -58,7 +58,7 @@ public class VerInsumosDePlanta2 {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setTitle("Ver Insumos");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-frame.getContentPane().setLayout(null);
+		frame.getContentPane().setLayout(null);
 		
 		JButton btnAtrs = new JButton("Atrás");
 		btnAtrs.addActionListener(new ActionListener() {

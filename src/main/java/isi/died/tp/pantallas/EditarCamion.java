@@ -1,22 +1,20 @@
 package isi.died.tp.pantallas;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JFrame;
-//import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
+import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.ButtonGroup;
 import javax.swing.SwingConstants;
 
-public class PantallaAgregarCamion {
+public class EditarCamion {
 
 	private JFrame frame;
 	private JTextField textIdCamion;
@@ -28,11 +26,14 @@ public class PantallaAgregarCamion {
 
 	private final ButtonGroup buttonGroupLiquidos = new ButtonGroup();
 
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PantallaAgregarCamion window = new PantallaAgregarCamion();
+					EditarCamion window = new EditarCamion();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,7 +45,7 @@ public class PantallaAgregarCamion {
 	/**
 	 * Create the application.
 	 */
-	public PantallaAgregarCamion() {
+	public EditarCamion() {
 		initialize();
 	}
 
@@ -53,10 +54,10 @@ public class PantallaAgregarCamion {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setTitle("Agregar Camión");
-		frame.setBounds(100, 100, 450, 350);
+		frame.setBounds(100, 100, 450, 360);
+		frame.setTitle("Editar Camión");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+frame.getContentPane().setLayout(null);
 		
 		JLabel lblDatosDelVehculo = new JLabel("Datos del vehículo:");
 		lblDatosDelVehculo.setBounds(10, 10, 200, 20);
@@ -144,19 +145,19 @@ public class PantallaAgregarCamion {
 		JButton btnAtrs = new JButton("Atrás");
 		btnAtrs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GestionDeTransporte gestt=new GestionDeTransporte();
+				BuscarCamion gestt=new BuscarCamion();
 				gestt.main(null);
 				frame.dispose();
 			}
 		});
-		btnAtrs.setBounds(10, 280, 200, 20);
+		btnAtrs.setBounds(10, 290, 200, 20);
 		frame.getContentPane().add(btnAtrs);
 		
-		JButton btnAgregar = new JButton("Agregar camión");
-		btnAgregar.setBounds(224, 280, 200, 20);
+		JButton btnAgregar = new JButton("Guardar cambios");
+		btnAgregar.setBounds(224, 290, 200, 20);
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GestionDeTransporte gestt=new GestionDeTransporte();
+				BuscarCamion gestt=new BuscarCamion();
 				gestt.main(null);
 				frame.dispose();
 			}
@@ -168,6 +169,7 @@ public class PantallaAgregarCamion {
 		frame.getContentPane().add(rdbtnNo);
 		buttonGroupLiquidos.add(rdbtnNo);
 		buttonGroupLiquidos.add(rdbtnS);
+
 	}
 
 }

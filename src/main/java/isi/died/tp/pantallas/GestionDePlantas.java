@@ -1,5 +1,5 @@
 
-//FALTAN LOS BOTONES ATRÁS Y CREAR PLANTA, 
+
 
 
 package isi.died.tp.pantallas;

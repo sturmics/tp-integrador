@@ -1,5 +1,5 @@
 
-//FALTAN LOS BOTONES AGREGAR STOCK A PLANTA Y EDITAR STOCKS
+//El botón editar stocks está comentado ya que no está la pantalla para editar dichos stocks por el momento
 
 package isi.died.tp.pantallas;
 
@@ -9,6 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import isi.died.tp.dominio.Planta;
+
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -21,7 +24,7 @@ public class EditarInsumosDePlanta {
 	private JButton btnAgregarStockA;
 	private JButton btnEditarStocks;
 	private JButton btnAtrs;
-
+	private static Planta planta;
 	/**
 	 * Launch the application.
 	 */
@@ -29,7 +32,7 @@ public class EditarInsumosDePlanta {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EditarInsumosDePlanta window = new EditarInsumosDePlanta();
+					EditarInsumosDePlanta window = new EditarInsumosDePlanta(planta);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +44,8 @@ public class EditarInsumosDePlanta {
 	/**
 	 * Create the application.
 	 */
-	public EditarInsumosDePlanta() {
+	public EditarInsumosDePlanta(Planta pl) {
+		planta=pl;
 		initialize();
 	}
 
@@ -59,26 +63,11 @@ public class EditarInsumosDePlanta {
 		scrollPane.setBounds(20, 21, 394, 154);
 		frame.getContentPane().add(scrollPane);
 		
-		table = new JTable();
-		table.setBackground(Color.LIGHT_GRAY);
-		table.setForeground(Color.LIGHT_GRAY);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-			},
-			new String[] {
-				"Insumo", "Cantidad", "Cantidad m\u00EDnima"
-			}
-		));
+		Object[][] datosStocks= planta.getDatosStock();
+		String[] columnas= {"Insumo","Cantidad","Cantidad Mínima"};
+		
+		table = new JTable(datosStocks, columnas);
+		table.editingCanceled(null);
 		scrollPane.setViewportView(table);
 		
 		btnAgregarStockA = new JButton("Agregar stock a planta");
@@ -86,20 +75,20 @@ public class EditarInsumosDePlanta {
 		frame.getContentPane().add(btnAgregarStockA);
 		btnAgregarStockA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PantallaAgregarStockPlantaX gestP=new PantallaAgregarStockPlantaX();
+				PantallaAgregarStockPlantaX gestP=new PantallaAgregarStockPlantaX(planta);
 				gestP.main(null);
 				frame.dispose();
 			}
 		});
 		
-		btnEditarStocks = new JButton("Editar stocks");
-		btnEditarStocks.setBounds(289, 186, 125, 25);
-		frame.getContentPane().add(btnEditarStocks);
+	//	btnEditarStocks = new JButton("Editar stocks");
+	//	btnEditarStocks.setBounds(289, 186, 125, 25);
+	//	frame.getContentPane().add(btnEditarStocks);
 		
 		btnAtrs = new JButton("Atrás");
 		btnAtrs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EditarPlanta editP = new EditarPlanta();
+				EditarPlanta editP = new EditarPlanta(planta);
 				editP.main(null);
 				frame.dispose();
 			}

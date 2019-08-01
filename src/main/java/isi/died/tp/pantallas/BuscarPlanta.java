@@ -111,11 +111,11 @@ public class BuscarPlanta {
 		frame.getContentPane().add(tfNombre);
 		tfNombre.setColumns(10);
 		
-		JButton btnNewButton = new JButton("Aceptar");
+		JButton btnNewButton = new JButton("Siguiente");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				OpcionesPlanta opP = new OpcionesPlanta(planta);
-				opP.main(planta);
+				opP.main(null);
 				frame.dispose();
 			}
 		});
@@ -163,6 +163,46 @@ public class BuscarPlanta {
 				scrollPane.setViewportView(table);
 				model=table.getSelectionModel();
 				table.setAutoCreateRowSorter(true);
+				
+				model.addListSelectionListener(new ListSelectionListener() {
+					public void valueChanged (ListSelectionEvent e) {
+						if(!model.isSelectionEmpty()) {
+								btnNewButton.setEnabled(true);
+								
+								int aux1=(int) table.getValueAt(model.getMinSelectionIndex(), 0);
+								String aux2=(String) table.getValueAt(model.getMinSelectionIndex(), 1);
+								
+								planta=(new Listas()).buscarPlanta(aux1,aux2);
+							}
+						}
+					});
+			}
+		});
+		
+		
+		
+		tfNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				btnNewButton.setEnabled(false);
+				
+				table= new JTable(actualizarTabla(datosPlantas,tfID.getText(),tfNombre.getText()),columnas);
+				scrollPane.setViewportView(table);
+				model=table.getSelectionModel();
+				table.setAutoCreateRowSorter(true);
+				
+				model.addListSelectionListener(new ListSelectionListener() {
+					public void valueChanged (ListSelectionEvent e) {
+						if(!model.isSelectionEmpty()) {
+								btnNewButton.setEnabled(true);
+								
+								int aux1=(int) table.getValueAt(model.getMinSelectionIndex(), 0);
+								String aux2=(String) table.getValueAt(model.getMinSelectionIndex(), 1);
+								
+								planta=(new Listas()).buscarPlanta(aux1,aux2);
+							}
+						}
+					});
 			}
 		});
 		
@@ -188,20 +228,19 @@ public class BuscarPlanta {
 			ArrayList<Planta> listaPlantas= new ArrayList<Planta>();
 			String idAux;
 			String nombreAux;
+			Planta pl = new Planta();
 			
 			for(int i=0; i<datos.length;i++) {
 				idAux = Integer.toString((int)datos[i][0]);
 				nombreAux = (String)datos[i][1];
 				if(nombreAux.contains(nombre) && idAux.contains(id)) {
-					
+					pl= datosFinal.buscarPlanta(Integer.parseInt(idAux), nombreAux);
+					listaPlantas.add(pl);
 				}
 			}
 			
-			
-			
+			datosFinal.setListaPlantas(listaPlantas);
+			return datosFinal.getBusquedaPlantas();
 		}
-	
-	
-	
 	//
 	}

@@ -11,6 +11,9 @@ import java.awt.Color;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.table.DefaultTableModel;
+
+import isi.died.tp.dominio.Planta;
+
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
@@ -25,6 +28,9 @@ public class VerInsumosDePlanta {
 	private JScrollPane scrollPane;
 	private JLabel lblId;
 	private JLabel lblNombre;
+	private JLabel lblIdPlanta;
+	private JLabel lblNombrePlanta;
+	private static Planta planta;
 
 	/**
 	 * Launch the application.
@@ -33,7 +39,7 @@ public class VerInsumosDePlanta {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VerInsumosDePlanta window = new VerInsumosDePlanta();
+					VerInsumosDePlanta window = new VerInsumosDePlanta(planta);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +51,8 @@ public class VerInsumosDePlanta {
 	/**
 	 * Create the application.
 	 */
-	public VerInsumosDePlanta() {
+	public VerInsumosDePlanta(Planta pl) {
+		planta = pl;
 		initialize();
 	}
 
@@ -62,7 +69,7 @@ public class VerInsumosDePlanta {
 		JButton btnAtrs = new JButton("Atrás");
 		btnAtrs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				OpcionesPlanta opp=new OpcionesPlanta();
+				OpcionesPlanta opp=new OpcionesPlanta(planta);
 				opp.main(null);
 				frame.dispose();
 			}
@@ -74,29 +81,12 @@ public class VerInsumosDePlanta {
 		scrollPane.setBounds(15, 64, 402, 144);
 		frame.getContentPane().add(scrollPane);
 		
-		table = new JTable();
+		Object[][] datosStocks= planta.getDatosStock();
+		String[] columnas= {"Insumo","Cantidad","Cantidad Mínima"};
+		
+		table = new JTable(datosStocks, columnas);
+		table.editingCanceled(null);
 		scrollPane.setViewportView(table);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-			},
-			new String[] {
-				"Insumo", "Cantidad", "Cantidad m\u00EDnima"
-			}
-		));
-		table.getColumnModel().getColumn(2).setPreferredWidth(93);
-		table.setFillsViewportHeight(true);
-		table.setColumnSelectionAllowed(true);
-		table.setCellSelectionEnabled(true);
-		table.setBackground(Color.LIGHT_GRAY);
 		
 		lblId = new JLabel("ID:");
 		lblId.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -107,5 +97,16 @@ public class VerInsumosDePlanta {
 		lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNombre.setBounds(0, 39, 60, 14);
 		frame.getContentPane().add(lblNombre);
+		
+		String id = Integer.toString(planta.getId());
+		lblIdPlanta = new JLabel(id);
+		lblIdPlanta.setHorizontalAlignment(SwingConstants.LEFT);
+		lblIdPlanta.setBounds(79, 21, 46, 14);
+		frame.getContentPane().add(lblIdPlanta);
+		
+		lblNombrePlanta = new JLabel(planta.getNombre());
+		lblNombrePlanta.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNombrePlanta.setBounds(79, 39, 140, 14);
+		frame.getContentPane().add(lblNombrePlanta);
 	}
 }
